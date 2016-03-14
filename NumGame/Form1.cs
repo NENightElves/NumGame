@@ -27,6 +27,12 @@ namespace NumGame
 
         }
 
+        private void check_win()
+        {
+            if ((c[1] == 9) && (c[2] == 9)) MessageBox.Show("电脑胜利！");
+            if ((c[1] == 9) && (c[2] == 9)) MessageBox.Show("玩家胜利！");
+        }
+
         private void make_text()
         {
             button1.Text = Convert.ToString(c[1]);
@@ -37,14 +43,29 @@ namespace NumGame
 
         private void plus(int ri, int rj)
         {
-            c[ri] = c[ri] + p[rj];
+
+            c[1] = Convert.ToInt32(button1.Text);
+            c[2] = Convert.ToInt32(button2.Text);
+            p[1] = Convert.ToInt32(button3.Text);
+            p[2] = Convert.ToInt32(button4.Text);
+
+            c[ri] = (c[ri] + p[rj]) % 10;
             make_text();
+
+            check_win();
         }
 
-        private void plus_p(int i,int j)
+        private void plus_p(int i, int j)
         {
-            p[i] = p[i] + c[j];
+            c[1] = Convert.ToInt32(button1.Text);
+            c[2] = Convert.ToInt32(button2.Text);
+            p[1] = Convert.ToInt32(button3.Text);
+            p[2] = Convert.ToInt32(button4.Text);
+
+            p[i] = (p[i] + c[j]) % 10;
             make_text();
+
+            check_win();
         }
 
 
@@ -90,6 +111,9 @@ namespace NumGame
         {
             plus_p(step_tmp, 1);
 
+            button3.Enabled = true; button4.Enabled = true;
+            button1.Enabled = false; button2.Enabled = false;
+
             numgamecomputing num = new numgamecomputing(target);
             num.choosecompleted += plus;
             num.generate(c, p, 0);
@@ -98,6 +122,9 @@ namespace NumGame
         private void button2_Click(object sender, EventArgs e)
         {
             plus_p(step_tmp, 2);
+
+            button3.Enabled = true; button4.Enabled = true;
+            button1.Enabled = false; button2.Enabled = false;
 
             numgamecomputing num = new numgamecomputing(target);
             num.choosecompleted += plus;

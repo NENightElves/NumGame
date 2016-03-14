@@ -13,7 +13,6 @@ namespace num_game_core
         private int endx;
         private int ri, rj;
         private int target;
-        Random ran;
         public delegate void choosecompleted_event(int a, int b);
         public event choosecompleted_event choosecompleted;
 
@@ -25,7 +24,7 @@ namespace num_game_core
                 for (j = 1; j <= 2; j++)
                     sp[i, j] = 0;
             m = 0; n = 0;
-            endx = 10;
+            endx = 2;
             target = a;
         }
 
@@ -45,25 +44,31 @@ namespace num_game_core
                 {
                     tc = c;
                     tp = p;
-                    if (x == 0) { m = i; n = j; }
+                    if (x == 0) { m = i; n = j;}
                     tmp = (c[i] + p[j]) % 10;
                     if ((x % 2) == 0)
                     {
                         //电脑的局
                         tc[i] = tmp;
-                        if (c[i] == target) sp[m, n] += 3;
-                        else if (c[i] != c[3 - i]) sp[m, n]++;
+                        if (tc[i] == target) sp[m, n] += 3;
+                        else if (tc[i] != tc[3 - i]) sp[m, n]++;
                         generate(tc, tp, x + 1);
                     }
                     else
                     {
                         //玩家的局
                         tp[i] = tmp;
-                        if (c[i] == target) sp[m, n] -= 3;
-                        else if (c[i] != c[3 - i]) sp[m, n]--;
+                        if (tc[i] == target) sp[m, n] -= 3;
+                        else if (tc[i] != tc[3 - i]) sp[m, n]--;
                         generate(tc, tp, x + 1);
                     }
                 }
+
+            //除9特例
+            for (i = 1; i <= 2; i++)
+                for (j = 1; j <= 2; j++)
+                    if (c[i] == 9) sp[m, n] -= 10000;
+
             if (x == 0) choose();
         }
 
@@ -71,11 +76,14 @@ namespace num_game_core
         private void choose()
         {
             int i, j, max;
+            Random ran;
+            ran = new Random();
             max = int.MinValue;
+
             for (i = 1; i <= 2; i++)
                 for (j = 1; j <= 2; j++)
                     if (max < sp[i, j]) { max = sp[i, j]; ri = i; rj = j; }
-                    else if (max == sp[i, j]) { if (ran.Next(0, 1) == 0) { max = sp[i, j]; ri = i; rj = j; } }
+                    else if (max == sp[i, j]) { if (ran.Next(0, 2) == 0) { max = sp[i, j]; ri = i; rj = j; } }
             choosecompleted(ri, rj);
             //该事件为传回数据指用电脑的第ri个数加玩家的第rj个数之和，累加到电脑的第ri个数
         }
