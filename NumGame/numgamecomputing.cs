@@ -1,4 +1,5 @@
-﻿using System;
+﻿//核心代码版本V0.1.003Alpha
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,8 @@ namespace num_game_core
                 for (j = 1; j <= 2; j++)
                     sp[i, j] = 0;
             m = 0; n = 0;
-            endx = 2;
+            endx = 1;
+            //endx最好是奇数，并且大于0。在目前的generate下，过大可能导致抉择错误。
             target = a;
         }
 
@@ -39,37 +41,60 @@ namespace num_game_core
             int[] tp = new int[3];
             if (x > endx) return;
 
+            //初始校正
+            if (x == 0)
+            {
+                if (((c[1] + p[1]) % 10) == target) sp[1, 1] += 8;
+                else if (((c[1] + p[2]) % 10) == target) sp[1, 2] += 8;
+                else if (((c[2] + p[1]) % 10) == target) sp[2, 1] += 8;
+                else if (((c[2] + p[2]) % 10) == target) sp[2, 2] += 8;
+            }
+
             for (i = 1; i <= 2; i++)
                 for (j = 1; j <= 2; j++)
                 {
-                    tc = c;
-                    tp = p;
-                    if (x == 0) { m = i; n = j;}
-                    tmp = (c[i] + p[j]) % 10;
+
+                    tc[1] = c[1]; tc[2] = c[2];
+                    tp[1] = p[1]; tp[2] = p[2];
+
+                    if (x == 0) { m = i; n = j; }
+
                     if ((x % 2) == 0)
                     {
                         //电脑的局
+                        tmp = (c[i] + p[j]) % 10;
                         tc[i] = tmp;
                         if (tc[i] == target) sp[m, n] += 3;
                         else if (tc[i] != tc[3 - i]) sp[m, n]++;
+                        //电脑双target自动校正
+                        if ((x == 0) && (tc[1] == target) && (tc[2] == target))
+                        { sp[m, n] = int.MaxValue; return; }
+                        //电脑双target自动校正
                         generate(tc, tp, x + 1);
                     }
                     else
                     {
                         //玩家的局
+                        tmp = (p[i] + c[j]) % 10;
                         tp[i] = tmp;
-                        if (tc[i] == target) sp[m, n] -= 3;
-                        else if (tc[i] != tc[3 - i]) sp[m, n]--;
+                        if (tp[i] == target) sp[m, n] -= 3;
+                        else if (tp[i] != tp[3 - i]) sp[m, n]--;
+                        //玩家双target自动校正
+                        if ((x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n] != int.MaxValue))
+                        { sp[m, n] = int.MinValue; return; }
+                        //玩家双target自动校正                        
                         generate(tc, tp, x + 1);
                     }
                 }
 
-            //除9特例
-            for (i = 1; i <= 2; i++)
-                for (j = 1; j <= 2; j++)
-                    if (c[i] == 9) sp[m, n] -= 10000;
-
-            if (x == 0) choose();
+            if (x == 0)
+            {
+                //除9特例，防止拆9
+                for (i = 1; i <= 2; i++)
+                    for (j = 1; j <= 2; j++)
+                        if ((c[i] == target) && (sp[i, j] != int.MinValue)) sp[i, j] -= 8;
+                choose();
+            }
         }
 
 
@@ -80,10 +105,21 @@ namespace num_game_core
             ran = new Random();
             max = int.MinValue;
 
+            //TEST:优先级测试
+            Console.Write($"sp[1,1]={sp[1, 1]}     sp[1,2]={sp[1, 2]}     ");
+            Console.Write($"sp[2,1]={sp[2, 1]}     sp[2,2]={sp[2, 2]}     \r\n");
+            //
+
             for (i = 1; i <= 2; i++)
                 for (j = 1; j <= 2; j++)
+                {
                     if (max < sp[i, j]) { max = sp[i, j]; ri = i; rj = j; }
-                    else if (max == sp[i, j]) { if (ran.Next(0, 2) == 0) { max = sp[i, j]; ri = i; rj = j; } }
+                    else if (max == sp[i, j])
+                    {
+                        if ((ran.Next(0, 2) == 0) || (sp[i, j] == int.MinValue))
+                        { max = sp[i, j]; ri = i; rj = j; }
+                    }
+                }
             choosecompleted(ri, rj);
             //该事件为传回数据指用电脑的第ri个数加玩家的第rj个数之和，累加到电脑的第ri个数
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿//窗体代码版本V0.1.003Alpha
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,10 +28,26 @@ namespace NumGame
 
         }
 
+        private void reset()
+        {
+            button1.Text = Convert.ToString(1);
+            button2.Text = Convert.ToString(1);
+            button3.Text = Convert.ToString(1);
+            button4.Text = Convert.ToString(1);
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+            button5.Text = "开始，电脑先";
+            button6.Text = "开始，玩家先";
+            button5.Enabled = true;
+            button6.Enabled = true;
+        }
+
         private void check_win()
         {
-            if ((c[1] == 9) && (c[2] == 9)) MessageBox.Show("电脑胜利！");
-            if ((c[1] == 9) && (c[2] == 9)) MessageBox.Show("玩家胜利！");
+            if ((c[1] == 9) && (c[2] == 9)) { MessageBox.Show("电脑胜利！"); reset(); }
+            if ((p[1] == 9) && (p[2] == 9)) { MessageBox.Show("玩家胜利！"); reset(); }
         }
 
         private void make_text()
@@ -43,12 +60,6 @@ namespace NumGame
 
         private void plus(int ri, int rj)
         {
-
-            c[1] = Convert.ToInt32(button1.Text);
-            c[2] = Convert.ToInt32(button2.Text);
-            p[1] = Convert.ToInt32(button3.Text);
-            p[2] = Convert.ToInt32(button4.Text);
-
             c[ri] = (c[ri] + p[rj]) % 10;
             make_text();
 
@@ -57,11 +68,6 @@ namespace NumGame
 
         private void plus_p(int i, int j)
         {
-            c[1] = Convert.ToInt32(button1.Text);
-            c[2] = Convert.ToInt32(button2.Text);
-            p[1] = Convert.ToInt32(button3.Text);
-            p[2] = Convert.ToInt32(button4.Text);
-
             p[i] = (p[i] + c[j]) % 10;
             make_text();
 
@@ -71,10 +77,15 @@ namespace NumGame
 
         private void button5_Click(object sender, EventArgs e)
         {
+            if (button6.Enabled == false) reset();
             c[1] = 1; c[2] = 1; p[1] = 1; p[2] = 1;
             make_text();
             button1.Enabled = false;
             button2.Enabled = false;
+            button3.Enabled = true;
+            button4.Enabled = true;
+            button6.Enabled = false;
+            button5.Text = "重置";
             check_target();
             target = Convert.ToInt32(textBox1.Text);
 
@@ -89,6 +100,10 @@ namespace NumGame
             make_text();
             button1.Enabled = false;
             button2.Enabled = false;
+            button3.Enabled = true;
+            button4.Enabled = true;
+            button6.Enabled = false;
+            button5.Text = "重置";
             check_target();
             target = Convert.ToInt32(textBox1.Text);
         }
