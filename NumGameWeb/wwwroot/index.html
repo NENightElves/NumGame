@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>NENightElves的数字游戏</title>
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script>
+        var pchoose;
+        $(document).ready(function(){
+            $("#p1").click(function () {
+                pchoose = 1;
+                $("#p1").attr("disabled", true);
+                $("#p2").attr("disabled", true);
+                $("#c1").attr("disabled", false);
+                $("#c2").attr("disabled", false);
+            })
+            $("#p2").click(function () {
+                pchoose = 2;
+                $("#p1").attr("disabled", true);
+                $("#p2").attr("disabled", true);
+                $("#c1").attr("disabled", false);
+                $("#c2").attr("disabled", false);
+            })
+            $("#c1").click(function () {
+                alert(pchoose);
+            })
+        });
+    </script>
+</head>
+<body>
+    目标
+    <input class="form-control" placeholder="9" style="width:100px;"/>
+    AI
+    <button id="c1" type="button" class="btn btn-default" disabled>1</button>
+    <button id="c2" type="button" class="btn btn-default" disabled>1</button>
+    <br />
+    你
+    <button id="p1" type="button" class="btn btn-default">1</button>
+    <button id="p2" type="button" class="btn btn-default">1</button>
+    <footer>
+        Powered by SkiTiSu.
+    </footer>
+</body>
+</html>
