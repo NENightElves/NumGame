@@ -1,4 +1,4 @@
-﻿//核心代码版本V0.1.003Alpha
+﻿//核心代码版本V0.1.004Alpha
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,10 +65,10 @@ namespace num_game_core
                         tmp = (c[i] + p[j]) % 10;
                         tc[i] = tmp;
                         if (tc[i] == target) sp[m, n] += 3;
-                        else if (tc[i] != tc[3 - i]) sp[m, n]++;
+                        //TEMP:else if (tc[i] != tc[3 - i]) sp[m, n]++;
                         //电脑双target自动校正
                         if ((x == 0) && (tc[1] == target) && (tc[2] == target))
-                        { sp[m, n] = int.MaxValue; return; }
+                        { sp[m, n] = int.MaxValue; choose(c, p); return; }
                         //电脑双target自动校正
                         generate(tc, tp, x + 1);
                     }
@@ -78,7 +78,7 @@ namespace num_game_core
                         tmp = (p[i] + c[j]) % 10;
                         tp[i] = tmp;
                         if (tp[i] == target) sp[m, n] -= 3;
-                        else if (tp[i] != tp[3 - i]) sp[m, n]--;
+                        //TEMP:else if (tp[i] != tp[3 - i]) sp[m, n]--;
                         //玩家双target自动校正
                         if ((x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n] != int.MaxValue))
                         { sp[m, n] = int.MinValue; return; }
@@ -93,12 +93,12 @@ namespace num_game_core
                 for (i = 1; i <= 2; i++)
                     for (j = 1; j <= 2; j++)
                         if ((c[i] == target) && (sp[i, j] != int.MinValue)) sp[i, j] -= 8;
-                choose();
+                choose(c, p);
             }
         }
 
 
-        private void choose()
+        private void choose(int[] c, int[] p)
         {
             int i, j, max;
             Random ran;
@@ -106,8 +106,10 @@ namespace num_game_core
             max = int.MinValue;
 
             //TEST:优先级测试
+            Console.Write($"c[1]={c[1]}     c[2]={c[2]}     ");
+            Console.WriteLine($"p[1]={p[1]}     p[2]={p[2]}     ");
             Console.Write($"sp[1,1]={sp[1, 1]}     sp[1,2]={sp[1, 2]}     ");
-            Console.Write($"sp[2,1]={sp[2, 1]}     sp[2,2]={sp[2, 2]}     \r\n");
+            Console.WriteLine($"sp[2,1]={sp[2, 1]}     sp[2,2]={sp[2, 2]}     \r\n");
             //
 
             for (i = 1; i <= 2; i++)

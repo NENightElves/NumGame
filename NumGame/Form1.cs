@@ -1,4 +1,4 @@
-﻿//窗体代码版本V0.1.003Alpha
+﻿//窗体代码版本V0.1.004Alpha
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,10 +44,11 @@ namespace NumGame
             button6.Enabled = true;
         }
 
-        private void check_win()
+        private bool check_win()
         {
-            if ((c[1] == 9) && (c[2] == 9)) { MessageBox.Show("电脑胜利！"); reset(); }
-            if ((p[1] == 9) && (p[2] == 9)) { MessageBox.Show("玩家胜利！"); reset(); }
+            if ((c[1] == 9) && (c[2] == 9)) { MessageBox.Show("电脑胜利！"); reset(); return true; }
+            if ((p[1] == 9) && (p[2] == 9)) { MessageBox.Show("玩家胜利！"); reset(); return true; }
+            return false;
         }
 
         private void make_text()
@@ -70,8 +71,6 @@ namespace NumGame
         {
             p[i] = (p[i] + c[j]) % 10;
             make_text();
-
-            check_win();
         }
 
 
@@ -129,6 +128,8 @@ namespace NumGame
             button3.Enabled = true; button4.Enabled = true;
             button1.Enabled = false; button2.Enabled = false;
 
+            if (check_win()) return;
+
             numgamecomputing num = new numgamecomputing(target);
             num.choosecompleted += plus;
             num.generate(c, p, 0);
@@ -141,9 +142,19 @@ namespace NumGame
             button3.Enabled = true; button4.Enabled = true;
             button1.Enabled = false; button2.Enabled = false;
 
+            if (check_win()) return;
+
             numgamecomputing num = new numgamecomputing(target);
             num.choosecompleted += plus;
             num.generate(c, p, 0);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //numgamecomputing num = new numgamecomputing(9);
+            //num.choosecompleted += plus;
+            //c[1] = 9; c[2] = 0; p[1] = 4; p[2] = 9;
+            //num.generate(c, p, 0);
         }
     }
 }
