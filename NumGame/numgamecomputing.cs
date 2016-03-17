@@ -1,4 +1,4 @@
-﻿//核心代码版本v0.1.005Alpha
+﻿//核心代码版本V0.1.004Alpha
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,11 +48,6 @@ namespace num_game_core
                 else if (((c[1] + p[2]) % 10) == target) sp[1, 2] += 8;
                 else if (((c[2] + p[1]) % 10) == target) sp[2, 1] += 8;
                 else if (((c[2] + p[2]) % 10) == target) sp[2, 2] += 8;
-
-                if ((((c[1] + p[1]) % 10) == target) && (p[2] == target)) { sp[1, 1] = int.MaxValue; choose(c, p); return; }
-                else if ((((c[1] + p[2]) % 10) == target) && (p[1] == target)) { sp[1, 2] = int.MaxValue; choose(c, p); return; }
-                else if ((((c[2] + p[1]) % 10) == target) && (p[2] == target)) { sp[2, 1] = int.MaxValue; choose(c, p); return; }
-                else if ((((c[2] + p[2]) % 10) == target) && (p[1] == target)) { sp[2, 2] = int.MaxValue; choose(c, p); return; }
             }
 
             for (i = 1; i <= 2; i++)
