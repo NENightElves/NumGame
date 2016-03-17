@@ -68,7 +68,27 @@ namespace NumGameWeb
                         else if (tc[i] != tc[3 - i]) sp[m, n]++;
                         //电脑双target自动校正
                         if ((x == 0) && (tc[1] == target) && (tc[2] == target))
-                        { sp[m, n] = int.MaxValue; return; }
+                        {
+                            sp[m, n] = int.MaxValue;
+                            //CHOOSE
+                            int max;
+                            Random ran;
+                            ran = new Random();
+                            max = int.MinValue;
+
+                            for (i = 1; i <= 2; i++)
+                                for (j = 1; j <= 2; j++)
+                                {
+                                    if (max < sp[i, j]) { max = sp[i, j]; ri = i; rj = j; }
+                                    else if (max == sp[i, j])
+                                    {
+                                        if ((ran.Next(0, 2) == 0) || (sp[i, j] == int.MinValue))
+                                        { max = sp[i, j]; ri = i; rj = j; }
+                                    }
+                                }
+                            //END CHOOSE
+                            return;
+                        }
                         //电脑双target自动校正
                         generate(tc, tp, x + 1, out ri, out rj);
                     }
@@ -78,7 +98,7 @@ namespace NumGameWeb
                         tmp = (p[i] + c[j]) % 10;
                         tp[i] = tmp;
                         if (tp[i] == target) sp[m, n] -= 3;
-                        else if (tp[i] != tp[3 - i]) sp[m, n]--;
+                        //else if (tp[i] != tp[3 - i]) sp[m, n]--;
                         //玩家双target自动校正
                         if ((x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n] != int.MaxValue))
                         { sp[m, n] = int.MinValue; return; }
@@ -93,15 +113,11 @@ namespace NumGameWeb
                 for (i = 1; i <= 2; i++)
                     for (j = 1; j <= 2; j++)
                         if ((c[i] == target) && (sp[i, j] != int.MinValue)) sp[i, j] -= 8;
+
                 int max;
                 Random ran;
                 ran = new Random();
                 max = int.MinValue;
-
-                //TEST:优先级测试
-                Console.Write($"sp[1,1]={sp[1, 1]}     sp[1,2]={sp[1, 2]}     ");
-                Console.Write($"sp[2,1]={sp[2, 1]}     sp[2,2]={sp[2, 2]}     \r\n");
-                //
 
                 for (i = 1; i <= 2; i++)
                     for (j = 1; j <= 2; j++)

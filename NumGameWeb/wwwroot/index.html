@@ -10,28 +10,75 @@
         var pchoose;
         $(document).ready(function(){
             $("#p1").click(function () {
-                pchoose = 1;
-                $("#p1").attr("disabled", true);
-                $("#p2").attr("disabled", true);
-                $("#c1").attr("disabled", false);
-                $("#c2").attr("disabled", false);
+                Pok(1);
             })
             $("#p2").click(function () {
-                pchoose = 2;
-                $("#p1").attr("disabled", true);
-                $("#p2").attr("disabled", true);
-                $("#c1").attr("disabled", false);
-                $("#c2").attr("disabled", false);
+                Pok(2);
             })
             $("#c1").click(function () {
-                alert(pchoose);
+                $("#p" + pchoose).text((parseInt($("#c1").text()) + parseInt($("#p" + pchoose).text())) % 10);
+                GetAIresult();
+            })
+            $("#c2").click(function () {
+                $("#p" + pchoose).text((parseInt($("#c2").text()) + parseInt($("#p" + pchoose).text())) % 10);
+                GetAIresult();
             })
         });
+        function Pok(pid) {
+            pchoose = pid;
+
+            $("#c1").removeClass("btn-primary");
+            $("#c2").removeClass("btn-primary");
+
+            $("#p" + pid).addClass("btn-primary");
+            $("#p1").attr("disabled", true);
+            $("#p2").attr("disabled", true);
+            $("#c1").attr("disabled", false);
+            $("#c2").attr("disabled", false);
+        }
+        function GetAIresult() {
+            if ($("#p1").text() == 9 && $("#p2").text() == 9) {
+                $("#p1").addClass("btn-success");
+                $("#p2").addClass("btn-success");
+                alert("玩家胜利！");
+                return;
+            }
+            $.ajax({
+                type: "GET",
+                url: "/api/game/play",
+                data: {
+                    "p1": $("#p1").text(),
+                    "p2": $("#p2").text(),
+                    "c1": $("#c1").text(),
+                    "c2": $("#c2").text(),
+                    "target": $("#target").text()
+                },
+                success: function (result) {
+                    $("#c" + result[0]).text((parseInt($("#c" + result[0]).text()) + parseInt($("#p" + result[1]).text())) % 10);
+                    $("#c" + result[0]).addClass("btn-primary");
+
+                    $("#p1").attr("disabled", false);
+                    $("#p2").attr("disabled", false);
+                    $("#c1").attr("disabled", true);
+                    $("#c2").attr("disabled", true);
+
+                    $("#p1").removeClass("btn-primary");
+                    $("#p2").removeClass("btn-primary");
+
+                    if ($("#c1").text() == 9 && $("#c2").text() == 9) {
+                        $("#c1").addClass("btn-success");
+                        $("#c2").addClass("btn-success");
+                        alert("AI胜利！");
+                        return;
+                    }
+                }
+            })
+        }
     </script>
 </head>
 <body>
     目标
-    <input class="form-control" placeholder="9" style="width:100px;"/>
+    <input id="target" value="9" class="form-control" placeholder="请输入目标数字" style="width:100px;"/>
     AI
     <button id="c1" type="button" class="btn btn-default" disabled>1</button>
     <button id="c2" type="button" class="btn btn-default" disabled>1</button>
@@ -40,7 +87,7 @@
     <button id="p1" type="button" class="btn btn-default">1</button>
     <button id="p2" type="button" class="btn btn-default">1</button>
     <footer>
-        Powered by SkiTiSu.
+        Core by NENightElves. Powered by SkiTiSu.
     </footer>
 </body>
 </html>
