@@ -1,4 +1,4 @@
-﻿//窗体代码版本V0.1.004Alpha
+﻿//窗体代码版本v0.1.004Alpha
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -151,10 +151,10 @@ namespace NumGame
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //numgamecomputing num = new numgamecomputing(9);
-            //num.choosecompleted += plus;
-            //c[1] = 9; c[2] = 0; p[1] = 4; p[2] = 9;
-            //num.generate(c, p, 0);
+            numgamecomputing num = new numgamecomputing(9);
+            num.choosecompleted += plus;
+            c[1] = 1; c[2] = 2; p[1] = 9; p[2] = 7;
+            num.generate(c, p, 0);
         }
     }
 }
