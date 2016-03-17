@@ -1,4 +1,4 @@
-﻿//窗体代码版本v0.1.004Alpha
+﻿//窗体代码版本v0.1.005Alpha
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -76,7 +76,7 @@ namespace NumGame
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (button6.Enabled == false) reset();
+            if (button6.Enabled == false) { reset(); return; }
             c[1] = 1; c[2] = 1; p[1] = 1; p[2] = 1;
             make_text();
             button1.Enabled = false;
