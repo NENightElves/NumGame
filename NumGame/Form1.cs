@@ -151,10 +151,10 @@ namespace NumGame
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            numgamecomputing num = new numgamecomputing(9);
-            num.choosecompleted += plus;
-            c[1] = 1; c[2] = 2; p[1] = 9; p[2] = 7;
-            num.generate(c, p, 0);
+            //numgamecomputing num = new numgamecomputing(9);
+            //num.choosecompleted += plus;
+            //c[1] = 1; c[2] = 2; p[1] = 9; p[2] = 7;
+            //num.generate(c, p, 0);
         }
     }
 }
