@@ -82,8 +82,8 @@ namespace NumGameAndroid
         {
             TextView editText1 = FindViewById<TextView>(Resource.Id.editText1);
 
-            if ((c[1] == 9) && (c[2] == 9)) { editText1.Text = "电脑胜利！"; reset(); return true; }
-            if ((p[1] == 9) && (p[2] == 9)) { editText1.Text = "玩家胜利！"; reset(); return true; }
+            if ((c[1] == 9) && (c[2] == 9)) { editText1.Text = "电脑胜利！"; return true; }
+            if ((p[1] == 9) && (p[2] == 9)) { editText1.Text = "玩家胜利！"; return true; }
             return false;
         }
 
