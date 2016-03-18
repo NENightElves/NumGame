@@ -153,7 +153,7 @@ namespace NumGame
         {
             //numgamecomputing num = new numgamecomputing(9);
             //num.choosecompleted += plus;
-            //c[1] = 1; c[2] = 2; p[1] = 9; p[2] = 7;
+            //c[1] = 7; c[2] = 9; p[1] = 0; p[2] = 9;
             //num.generate(c, p, 0);
         }
     }
