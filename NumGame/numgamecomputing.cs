@@ -1,4 +1,4 @@
-﻿//核心代码版本v0.1.006Alpha
+﻿//核心代码版本v0.1.007Alpha
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 
 namespace num_game_core
 {
-    class numgamecomputing
+    public class numgamecomputing
     {
 
         private int m, n;
@@ -50,7 +50,7 @@ namespace num_game_core
                 if (((c[2] + p[1]) % 10) == target) sp[2, 1] += 8;
                 if (((c[2] + p[2]) % 10) == target) sp[2, 2] += 8;
 
-                if ((((c[1] + p[1]) % 10) == target) && (p[2] == target)) { sp[1, 1] = 1000;sp[1, 2] = 1000; }
+                if ((((c[1] + p[1]) % 10) == target) && (p[2] == target)) { sp[1, 1] = 1000; sp[1, 2] = 1000; }
                 if ((((c[1] + p[2]) % 10) == target) && (p[1] == target)) { sp[1, 1] = 1000; sp[1, 2] = 1000; }
                 if ((((c[2] + p[1]) % 10) == target) && (p[2] == target)) { sp[2, 1] = 1000; sp[2, 2] = 1000; }
                 if ((((c[2] + p[2]) % 10) == target) && (p[1] == target)) { sp[2, 1] = 1000; sp[2, 2] = 1000; }
@@ -71,7 +71,7 @@ namespace num_game_core
                         tmp = (c[i] + p[j]) % 10;
                         tc[i] = tmp;
                         if (tc[i] == target) sp[m, n] += 3;
-                        //TEMP:else if (tc[i] != tc[3 - i]) sp[m, n]++;
+                        else if (tc[i] != tc[3 - i]) sp[m, n]++;
                         //电脑双target自动校正
                         if ((x == 0) && (tc[1] == target) && (tc[2] == target))
                         { sp[m, n] = int.MaxValue; choose(c, p); return; }
@@ -84,7 +84,7 @@ namespace num_game_core
                         tmp = (p[i] + c[j]) % 10;
                         tp[i] = tmp;
                         if (tp[i] == target) sp[m, n] -= 3;
-                        //TEMP:else if (tp[i] != tp[3 - i]) sp[m, n]--;
+                        else if (tp[i] != tp[3 - i]) sp[m, n]--;
                         //玩家双target自动校正
                         if ((x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n] != int.MaxValue))
                         { sp[m, n] = int.MinValue; return; }
@@ -136,7 +136,7 @@ namespace num_game_core
 
 
         #endregion
-        
+
 
         #region 回传值性质的函数
         public void generate(int[] c, int[] p, int x, ref int ri, ref int rj)
@@ -179,7 +179,7 @@ namespace num_game_core
                         tmp = (c[i] + p[j]) % 10;
                         tc[i] = tmp;
                         if (tc[i] == target) sp[m, n] += 3;
-                        //TEMP:else if (tc[i] != tc[3 - i]) sp[m, n]++;
+                        else if (tc[i] != tc[3 - i]) sp[m, n]++;
                         //电脑双target自动校正
                         if ((x == 0) && (tc[1] == target) && (tc[2] == target))
                         { sp[m, n] = int.MaxValue; choose(c, p, ref ri, ref rj); return; }
@@ -192,7 +192,7 @@ namespace num_game_core
                         tmp = (p[i] + c[j]) % 10;
                         tp[i] = tmp;
                         if (tp[i] == target) sp[m, n] -= 3;
-                        //TEMP:else if (tp[i] != tp[3 - i]) sp[m, n]--;
+                        else if (tp[i] != tp[3 - i]) sp[m, n]--;
                         //玩家双target自动校正
                         if ((x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n] != int.MaxValue))
                         { sp[m, n] = int.MinValue; return; }

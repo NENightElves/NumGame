@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.OS;
 using num_game_core;
 
+
 namespace NumGameAndroid
 {
     [Activity(Label = "NumGameAndroid", MainLauncher = true, Icon = "@drawable/icon")]
@@ -29,8 +30,8 @@ namespace NumGameAndroid
 
             // Get our button from the layout resource,
             // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.MyButton);
-            button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            //Button button = FindViewById<Button>(Resource.Id.MyButton);
+            //button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
             Button button1 = FindViewById<Button>(Resource.Id.button1);
             Button button2 = FindViewById<Button>(Resource.Id.button2);
             Button button3 = FindViewById<Button>(Resource.Id.button3);
@@ -63,6 +64,7 @@ namespace NumGameAndroid
             Button button4 = FindViewById<Button>(Resource.Id.button4);
             Button button5 = FindViewById<Button>(Resource.Id.button5);
             Button button6 = FindViewById<Button>(Resource.Id.button6);
+            TextView editText1 = FindViewById<TextView>(Resource.Id.editText1);
 
             button1.Text = Convert.ToString(1);
             button2.Text = Convert.ToString(1);
@@ -76,14 +78,15 @@ namespace NumGameAndroid
             button6.Text = "开始，玩家先";
             button5.Enabled = true;
             button6.Enabled = true;
+            editText1.Text = Convert.ToString(target);
         }
 
         private bool check_win()
         {
             TextView editText1 = FindViewById<TextView>(Resource.Id.editText1);
 
-            if ((c[1] == 9) && (c[2] == 9)) { editText1.Text = "电脑胜利！"; return true; }
-            if ((p[1] == 9) && (p[2] == 9)) { editText1.Text = "玩家胜利！"; return true; }
+            if ((c[1] == target) && (c[2] == target)) { editText1.Text = "电脑胜利！"; return true; }
+            if ((p[1] == target) && (p[2] == target)) { editText1.Text = "玩家胜利！"; return true; }
             return false;
         }
 

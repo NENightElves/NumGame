@@ -1,4 +1,4 @@
-﻿//窗体代码版本v0.1.005Alpha
+﻿//窗体代码版本v0.1.006Alpha
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,8 +46,8 @@ namespace NumGame
 
         private bool check_win()
         {
-            if ((c[1] == 9) && (c[2] == 9)) { MessageBox.Show("电脑胜利！"); reset(); return true; }
-            if ((p[1] == 9) && (p[2] == 9)) { MessageBox.Show("玩家胜利！"); reset(); return true; }
+            if ((c[1] == target) && (c[2] == target)) { MessageBox.Show("电脑胜利！"); reset(); return true; }
+            if ((p[1] == target) && (p[2] == target)) { MessageBox.Show("玩家胜利！"); reset(); return true; }
             return false;
         }
 
@@ -153,7 +153,7 @@ namespace NumGame
         {
             //numgamecomputing num = new numgamecomputing(9);
             //num.choosecompleted += plus;
-            //c[1] = 7; c[2] = 9; p[1] = 0; p[2] = 9;
+            //c[1] = 2; c[2] = 7; p[1] = 5; p[2] = 9;
             //num.generate(c, p, 0);
         }
     }
