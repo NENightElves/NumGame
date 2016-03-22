@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumGame", "NumGame\NumGame.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumGameAndroid", "NumGameAndroid\NumGameAndroid.csproj", "{D3D03CC4-1DAB-4193-A975-AD737DD94D63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "num_game_core", "num_game_core\num_game_core.csproj", "{385FF625-3719-4E70-BBD1-EE4D4D91CA8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{D3D03CC4-1DAB-4193-A975-AD737DD94D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3D03CC4-1DAB-4193-A975-AD737DD94D63}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3D03CC4-1DAB-4193-A975-AD737DD94D63}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{385FF625-3719-4E70-BBD1-EE4D4D91CA8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{385FF625-3719-4E70-BBD1-EE4D4D91CA8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{385FF625-3719-4E70-BBD1-EE4D4D91CA8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{385FF625-3719-4E70-BBD1-EE4D4D91CA8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
