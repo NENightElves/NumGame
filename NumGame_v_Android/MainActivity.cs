@@ -81,6 +81,7 @@ namespace NumGame_v_Android
             Button b_t = FindViewById<Button>(Resource.Id.b_t);
             Button b_d = FindViewById<Button>(Resource.Id.b_d);
             EditText textbox1 = FindViewById<EditText>(Resource.Id.editText1);
+            TextView text = FindViewById<TextView>(Resource.Id.textView1);
 
 
             button1.Text = Convert.ToString(1);
@@ -93,6 +94,7 @@ namespace NumGame_v_Android
             button4.Enabled = false;
             button5.Text = "开始，电脑先";
             button6.Text = "开始，玩家先";
+            text.Text = "点击按钮开始";
             button5.Enabled = true;
             button6.Enabled = true;
             b_p.Enabled = false;
