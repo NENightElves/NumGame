@@ -1,4 +1,4 @@
-﻿//核心代码版本v0.2.001Alpha
+﻿//核心代码版本v0.2.002Alpha
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -160,7 +160,7 @@ namespace num_game_core
                 for (j = 1; j <= 2; j++)
                     for (k = 1; k <= 4; k++)
                         sp[i, j, k] = 0;
-            m = 0; n = 0;
+            m = 0; n = 0; x = 0;
             endx = 1;
             //endx最好是奇数，并且大于0。在目前的generate下，过大可能导致抉择错误。
             target = a;
@@ -168,30 +168,32 @@ namespace num_game_core
 
         #region 基础加减乘除法
 
-        public int plus(int a, int b)
+        public static int plus(int a, int b)
         {
             int tmp;
             tmp = (a + b) % 10;
             return tmp;
         }
 
-        public int minus(int a, int b)
+        public static int minus(int a, int b)
         {
             int tmp;
             tmp = Math.Abs((a - b)) % 10;
             return tmp;
         }
 
-        public int time(int a, int b)
+        public static int time(int a, int b)
         {
             int tmp;
+            if ((a == 0) || (b == 0)) return -1;
             tmp = (a * b) % 10;
             return tmp;
         }
 
-        public int div(int a, int b)
+        public static int div(int a, int b)
         {
             int tmp;
+            if ((a == 0) || (b == 0)) return -1;
             tmp = Convert.ToInt32(Math.Floor(Convert.ToDecimal(a / b))) % 10;
             return tmp;
         }
@@ -201,18 +203,18 @@ namespace num_game_core
 
 
         #region 事件性质的函数
-        public void generate(int[] c, int[] p, int x)
-        //x请用0带入！
+        public void generate(int[] c, int[] p, int step_x)
+        //step_x请用0带入！
         //c为电脑当前数字
         //p为玩家当前数字
         {
             int i, j, k, tmp;
             int[] tc = new int[3];
             int[] tp = new int[3];
-            if (x > endx) return;
+            if (step_x > endx) return;
 
             //初始校正
-            if (x == 0)
+            if (step_x == 0)
             {
                 for (i = 1; i <= 2; i++)
                     for (j = 1; j <= 2; j++)
@@ -229,17 +231,17 @@ namespace num_game_core
                     }
             }
 
-            for (i = 1; i <= 2; i++)
-                for (j = 1; j <= 2; j++)
-                    for (k = 1; k <= 4; k++)
+            for (k = 2; k <= 4; k++)
+                for (i = 1; i <= 2; i++)
+                    for (j = 1; j <= 2; j++)
                     {
 
                         tc[1] = c[1]; tc[2] = c[2];
                         tp[1] = p[1]; tp[2] = p[2];
 
-                        if (x == 0) { m = i; n = j; }
+                        if (step_x == 0) { m = i; n = j; x = k; }
 
-                        if ((x % 2) == 0)
+                        if ((step_x % 2) == 0)
                         {
                             //电脑的局
                             tmp = 0;
@@ -247,15 +249,16 @@ namespace num_game_core
                             if (k == 2) tmp = minus(c[i], p[j]);
                             if (k == 3) tmp = time(c[i], p[j]);
                             if (k == 4) tmp = div(c[i], p[j]);
+                            if ((tmp == -1) && (step_x == 0)) { sp[i, j, k] = int.MinValue; continue; }
 
                             tc[i] = tmp;
                             if (tc[i] == target) sp[m, n, x] += 3;
                             else if (tc[i] != tc[3 - i]) sp[m, n, x]++;
                             //电脑双target自动校正
-                            if ((x == 0) && (tc[1] == target) && (tc[2] == target))
+                            if ((step_x == 0) && (tc[1] == target) && (tc[2] == target))
                             { sp[m, n, x] = int.MaxValue; choose(c, p); return; }
                             //电脑双target自动校正
-                            generate(tc, tp, x + 1);
+                            generate(tc, tp, step_x + 1);
                         }
                         else
                         {
@@ -265,25 +268,26 @@ namespace num_game_core
                             if (k == 2) tmp = minus(p[i], c[j]);
                             if (k == 3) tmp = time(p[i], c[j]);
                             if (k == 4) tmp = div(p[i], c[j]);
+                            if ((tmp == -1) && (step_x == 0)) { sp[i, j, k] = int.MinValue; continue; }
 
                             tp[i] = tmp;
                             if (tp[i] == target) sp[m, n, x] -= 3;
                             else if (tp[i] != tp[3 - i]) sp[m, n, x]--;
                             //玩家双target自动校正
-                            if ((x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n, x] != int.MaxValue))
-                            { sp[m, n, x] = int.MinValue; return; }
+                            if ((step_x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n, x] != int.MaxValue))
+                            { sp[m, n, x] = int.MinValue + 1; return; }
                             //玩家双target自动校正                        
-                            generate(tc, tp, x + 1);
+                            generate(tc, tp, step_x + 1);
                         }
                     }
 
-            if (x == 0)
+            if (step_x == 0)
             {
                 //除9特例，防止拆9
-                for (i = 1; i <= 2; i++)
-                    for (j = 1; j <= 2; j++)
-                        for (k = 1; k <= 4; k++)
-                            if ((c[i] == target) && (sp[i, j, k] != int.MinValue)) sp[i, j, k] -= 8;
+                for (k = 1; k <= 4; k++)
+                    for (i = 1; i <= 2; i++)
+                        for (j = 1; j <= 2; j++)
+                            if ((c[i] == target) && (sp[i, j, k] != int.MinValue + 1)) sp[i, j, k] -= 8;
                 choose(c, p);
             }
         }
@@ -296,23 +300,32 @@ namespace num_game_core
             int i, j, k, max;
             Random ran;
             ran = new Random();
-            max = int.MinValue;
+            max = int.MinValue + 1;
 
             //TEST:优先级测试
-            //Console.Write($"c[1]={c[1]}     c[2]={c[2]}     ");
-            //Console.WriteLine($"p[1]={p[1]}     p[2]={p[2]}     ");
-            //Console.Write($"sp[1,1]={sp[1, 1]}     sp[1,2]={sp[1, 2]}     ");
-            //Console.WriteLine($"sp[2,1]={sp[2, 1]}     sp[2,2]={sp[2, 2]}     \r\n");
+            Console.Write($"c[1]={c[1]}     c[2]={c[2]}     ");
+            Console.WriteLine($"p[1]={p[1]}     p[2]={p[2]}     ");
+            Console.WriteLine();
+            for (k = 1; k <= 4; k++)
+            {
+                for (i = 1; i <= 2; i++)
+                    for (j = 1; j <= 2; j++)
+                        Console.Write($"sp[{i},{j},{k}]={sp[i, j, k]}   ");
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             //
 
-            for (i = 1; i <= 2; i++)
-                for (j = 1; j <= 2; j++)
-                    for (k = 1; k <= 4; k++)
+            for (k = 1; k <= 4; k++)
+                for (i = 1; i <= 2; i++)
+                    for (j = 1; j <= 2; j++)
                     {
                         if (max < sp[i, j, k]) { max = sp[i, j, k]; ri = i; rj = j; rk = k; }
                         else if (max == sp[i, j, k])
                         {
-                            if ((ran.Next(0, 2) == 0) || (sp[i, j, k] == int.MinValue))
+                            if ((ran.Next(0, 2) == 0) || (sp[i, j, k] == int.MinValue + 1))
                             { max = sp[i, j, k]; ri = i; rj = j; rk = k; }
                         }
                     }

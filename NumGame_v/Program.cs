@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace NumGame_v
+namespace NumGame
 {
     static class Program
     {
