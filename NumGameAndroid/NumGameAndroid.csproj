@@ -85,6 +85,7 @@
     <ProjectReference Include="..\num_game_core\num_game_core.csproj">
       <Project>{385ff625-3719-4e70-bbd1-ee4d4d91ca8c}</Project>
       <Name>num_game_core</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

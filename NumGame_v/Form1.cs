@@ -16,6 +16,7 @@ namespace NumGame
         int target;
         int[] c = new int[3];
         int[] p = new int[3];
+        bool f;
         int step_tmp, step_measure;
 
         public Form1()
@@ -83,22 +84,25 @@ namespace NumGame
             button2.Enabled = true;
         }
 
-        private void cal(int ri, int rj,int rk)
+        private void cal(int ri, int rj, int rk)
         {
             if (rk == 1) c[ri] = numgamecomputing_v.plus(c[ri], p[rj]);
             if (rk == 2) c[ri] = numgamecomputing_v.minus(c[ri], p[rj]);
             if (rk == 3) c[ri] = numgamecomputing_v.time(c[ri], p[rj]);
-            if (rk == 4) c[rj] = numgamecomputing_v.div(c[ri], p[rj]);
+            if (rk == 4) c[ri] = numgamecomputing_v.div(c[ri], p[rj]);
+            make_text();
 
             check_win();
         }
 
-        private void plus_p(int i, int j,int k)
+        private void plus_p(int i, int j, int k)
         {
+            if (((p[i] == 0) || (c[j] == 0)) && ((k == 3) || (k == 4))) { MessageBox.Show("乘除不允许带0运算！"); f = false; return; }
+            f = true;
             if (k == 1) p[i] = numgamecomputing_v.plus(p[i], c[j]);
             if (k == 2) p[i] = numgamecomputing_v.minus(p[i], c[j]);
             if (k == 3) p[i] = numgamecomputing_v.time(p[i], c[j]);
-            if (k == 4) p[j] = numgamecomputing_v.div(p[i], c[j]);
+            if (k == 4) p[i] = numgamecomputing_v.div(p[i], c[j]);
 
             make_text();
         }
@@ -153,30 +157,36 @@ namespace NumGame
 
         private void button1_Click(object sender, EventArgs e)
         {
-            plus_p(step_tmp, 1,step_measure);
+            plus_p(step_tmp, 1, step_measure);
 
             button3.Enabled = true; button4.Enabled = true;
             button1.Enabled = false; button2.Enabled = false;
 
             if (check_win()) return;
 
-            numgamecomputing_v num = new numgamecomputing_v(target);
-            num.choosecompleted += cal;
-            num.generate(c, p, 0);
+            if (f == true)
+            {
+                numgamecomputing_v num = new numgamecomputing_v(target);
+                num.choosecompleted += cal;
+                num.generate(c, p, 0);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            plus_p(step_tmp, 2,step_measure);
+            plus_p(step_tmp, 2, step_measure);
 
             button3.Enabled = true; button4.Enabled = true;
             button1.Enabled = false; button2.Enabled = false;
 
             if (check_win()) return;
 
-            numgamecomputing_v num = new numgamecomputing_v(target);
-            num.choosecompleted += cal;
-            num.generate(c, p, 0);
+            if (f == true)
+            {
+                numgamecomputing_v num = new numgamecomputing_v(target);
+                num.choosecompleted += cal;
+                num.generate(c, p, 0);
+            }
         }
 
         private void b_p_Click(object sender, EventArgs e)
@@ -205,9 +215,9 @@ namespace NumGame
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //numgamecomputing num = new numgamecomputing(9);
-            //num.choosecompleted += plus;
-            //c[1] = 2; c[2] = 7; p[1] = 5; p[2] = 9;
+            //numgamecomputing_v num = new numgamecomputing_v(9);
+            //num.choosecompleted += cal;
+            //c[1] = 9; c[2] = 8; p[1] = 0; p[2] = 2;
             //num.generate(c, p, 0);
         }
     }

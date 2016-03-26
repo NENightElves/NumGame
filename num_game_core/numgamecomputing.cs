@@ -249,7 +249,7 @@ namespace num_game_core
                             if (k == 2) tmp = minus(c[i], p[j]);
                             if (k == 3) tmp = time(c[i], p[j]);
                             if (k == 4) tmp = div(c[i], p[j]);
-                            if ((tmp == -1) && (step_x == 0)) { sp[i, j, k] = int.MinValue; continue; }
+                            if (tmp == -1) if (step_x == 0) { sp[i, j, k] = int.MinValue + 100; continue; } else continue;
 
                             tc[i] = tmp;
                             if (tc[i] == target) sp[m, n, x] += 3;
@@ -268,14 +268,14 @@ namespace num_game_core
                             if (k == 2) tmp = minus(p[i], c[j]);
                             if (k == 3) tmp = time(p[i], c[j]);
                             if (k == 4) tmp = div(p[i], c[j]);
-                            if ((tmp == -1) && (step_x == 0)) { sp[i, j, k] = int.MinValue; continue; }
+                            if (tmp == -1) if (step_x == 0) { sp[i, j, k] = int.MinValue + 100; continue; } else continue;
 
                             tp[i] = tmp;
                             if (tp[i] == target) sp[m, n, x] -= 3;
                             else if (tp[i] != tp[3 - i]) sp[m, n, x]--;
                             //玩家双target自动校正
                             if ((step_x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n, x] != int.MaxValue))
-                            { sp[m, n, x] = int.MinValue + 1; return; }
+                            { sp[m, n, x] = int.MinValue + 1000; return; }
                             //玩家双target自动校正                        
                             generate(tc, tp, step_x + 1);
                         }
@@ -287,7 +287,7 @@ namespace num_game_core
                 for (k = 1; k <= 4; k++)
                     for (i = 1; i <= 2; i++)
                         for (j = 1; j <= 2; j++)
-                            if ((c[i] == target) && (sp[i, j, k] != int.MinValue + 1)) sp[i, j, k] -= 8;
+                            if ((c[i] == target) && (sp[i, j, k] != int.MinValue + 1000)) sp[i, j, k] -= 8;
                 choose(c, p);
             }
         }
@@ -300,7 +300,7 @@ namespace num_game_core
             int i, j, k, max;
             Random ran;
             ran = new Random();
-            max = int.MinValue + 1;
+            max = int.MinValue + 1000;
 
             //TEST:优先级测试
             Console.Write($"c[1]={c[1]}     c[2]={c[2]}     ");
@@ -325,7 +325,7 @@ namespace num_game_core
                         if (max < sp[i, j, k]) { max = sp[i, j, k]; ri = i; rj = j; rk = k; }
                         else if (max == sp[i, j, k])
                         {
-                            if ((ran.Next(0, 2) == 0) || (sp[i, j, k] == int.MinValue + 1))
+                            if ((ran.Next(0, 2) == 0) || (sp[i, j, k] == int.MinValue + 1000))
                             { max = sp[i, j, k]; ri = i; rj = j; rk = k; }
                         }
                     }
