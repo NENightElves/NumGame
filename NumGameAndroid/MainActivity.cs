@@ -13,7 +13,6 @@ namespace NumGameAndroid
     [Activity(Label = "NumGameAndroid", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        int count = 1;
 
         int target;
         int[] c = new int[3];
