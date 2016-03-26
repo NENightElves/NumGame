@@ -7,7 +7,8 @@
         android:id="@+id/MyButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Hello" />
+        android:text="@string/Hello"
+        android:visibility="invisible" />
     <EditText
         android:inputType="date"
         android:layout_width="match_parent"
