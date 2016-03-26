@@ -105,8 +105,8 @@ namespace NumGame_v_Android
         {
             TextView text = FindViewById<TextView>(Resource.Id.textView1);
 
-            if ((c[1] == target) && (c[2] == target)) { text.Text="电脑胜利！"; reset(); return true; }
-            if ((p[1] == target) && (p[2] == target)) { text.Text = "电脑胜利！"; reset(); return true; }
+            if ((c[1] == target) && (c[2] == target)) { text.Text = "电脑胜利！"; return true; }
+            if ((p[1] == target) && (p[2] == target)) { text.Text = "电脑胜利！"; return true; }
             return false;
         }
 
@@ -217,7 +217,7 @@ namespace NumGame_v_Android
             TextView text = FindViewById<TextView>(Resource.Id.textView1);
 
 
-            if (((p[i] == 0) || (c[j] == 0)) && ((k == 3) || (k == 4))) { text.Text="乘除不允许带0运算！"; f = false; return; }
+            if (((p[i] == 0) || (c[j] == 0)) && ((k == 3) || (k == 4))) { text.Text = "乘除不允许带0运算！"; f = false; return; }
             f = true;
             if (k == 1) p[i] = numgamecomputing_v.plus(p[i], c[j]);
             if (k == 2) p[i] = numgamecomputing_v.minus(p[i], c[j]);
