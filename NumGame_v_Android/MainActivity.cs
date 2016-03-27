@@ -192,12 +192,13 @@ namespace NumGame_v_Android
             Button b_t = FindViewById<Button>(Resource.Id.b_t);
             Button b_d = FindViewById<Button>(Resource.Id.b_d);
             EditText textbox1 = FindViewById<EditText>(Resource.Id.editText1);
+            TextView text = FindViewById<TextView>(Resource.Id.textView1);
 
 
-            if (rk == 1) c[ri] = numgamecomputing_v.plus(c[ri], p[rj]);
-            if (rk == 2) c[ri] = numgamecomputing_v.minus(c[ri], p[rj]);
-            if (rk == 3) c[ri] = numgamecomputing_v.time(c[ri], p[rj]);
-            if (rk == 4) c[ri] = numgamecomputing_v.div(c[ri], p[rj]);
+            if (rk == 1) { text.Text = $"{c[ri]} + {c[rj]} = {numgamecomputing_v.plus(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.plus(c[ri], p[rj]); }
+            if (rk == 2) { text.Text = $"{c[ri]} - {c[rj]} = {numgamecomputing_v.minus(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.minus(c[ri], p[rj]); }
+            if (rk == 3) { text.Text = $"{c[ri]} * {c[rj]} = {numgamecomputing_v.time(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.time(c[ri], p[rj]); }
+            if (rk == 4) { text.Text = $"{c[ri]} / {c[rj]} = {numgamecomputing_v.div(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.div(c[ri], p[rj]); }
             make_text();
 
             check_win();

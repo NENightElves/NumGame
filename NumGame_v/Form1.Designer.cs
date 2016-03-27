@@ -40,6 +40,7 @@
             this.b_m = new System.Windows.Forms.Button();
             this.b_t = new System.Windows.Forms.Button();
             this.b_d = new System.Windows.Forms.Button();
+            this.text = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -167,11 +168,21 @@
             this.b_d.UseVisualStyleBackColor = true;
             this.b_d.Click += new System.EventHandler(this.b_d_Click);
             // 
+            // text
+            // 
+            this.text.AutoSize = true;
+            this.text.Location = new System.Drawing.Point(337, 43);
+            this.text.Name = "text";
+            this.text.Size = new System.Drawing.Size(77, 12);
+            this.text.TabIndex = 12;
+            this.text.Text = "点击按钮开始";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(516, 355);
+            this.Controls.Add(this.text);
             this.Controls.Add(this.b_d);
             this.Controls.Add(this.b_t);
             this.Controls.Add(this.b_m);
@@ -206,6 +217,7 @@
         private System.Windows.Forms.Button b_m;
         private System.Windows.Forms.Button b_t;
         private System.Windows.Forms.Button b_d;
+        private System.Windows.Forms.Label text;
     }
 }
 

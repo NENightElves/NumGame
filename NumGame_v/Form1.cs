@@ -41,6 +41,7 @@ namespace NumGame
             button4.Enabled = false;
             button5.Text = "开始，电脑先";
             button6.Text = "开始，玩家先";
+            text.Text = "点击按钮开始";
             button5.Enabled = true;
             button6.Enabled = true;
             b_p.Enabled = false;
@@ -86,10 +87,11 @@ namespace NumGame
 
         private void cal(int ri, int rj, int rk)
         {
-            if (rk == 1) c[ri] = numgamecomputing_v.plus(c[ri], p[rj]);
-            if (rk == 2) c[ri] = numgamecomputing_v.minus(c[ri], p[rj]);
-            if (rk == 3) c[ri] = numgamecomputing_v.time(c[ri], p[rj]);
-            if (rk == 4) c[ri] = numgamecomputing_v.div(c[ri], p[rj]);
+            if (rk == 1) { text.Text = $"{c[ri]} + {c[rj]} = {numgamecomputing_v.plus(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.plus(c[ri], p[rj]); }
+            if (rk == 2) { text.Text = $"{c[ri]} - {c[rj]} = {numgamecomputing_v.minus(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.minus(c[ri], p[rj]); }
+            if (rk == 3) { text.Text = $"{c[ri]} * {c[rj]} = {numgamecomputing_v.time(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.time(c[ri], p[rj]); }
+            if (rk == 4) { text.Text = $"{c[ri]} / {c[rj]} = {numgamecomputing_v.div(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.div(c[ri], p[rj]); }
+
             make_text();
 
             check_win();
