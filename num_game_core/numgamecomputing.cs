@@ -231,7 +231,7 @@ namespace num_game_core
                     }
             }
 
-            for (k = 2; k <= 4; k++)
+            for (k = 1; k <= 4; k++)
                 for (i = 1; i <= 2; i++)
                     for (j = 1; j <= 2; j++)
                     {

@@ -217,7 +217,7 @@ namespace NumGame
         {
             //numgamecomputing_v num = new numgamecomputing_v(9);
             //num.choosecompleted += cal;
-            //c[1] = 9; c[2] = 8; p[1] = 0; p[2] = 2;
+            //c[1] = 5; c[2] = 9; p[1] = 9; p[2] = 0;
             //num.generate(c, p, 0);
         }
     }
