@@ -87,10 +87,10 @@ namespace NumGame
 
         private void cal(int ri, int rj, int rk)
         {
-            if (rk == 1) { text.Text = $"{c[ri]} + {c[rj]} = {numgamecomputing_v.plus(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.plus(c[ri], p[rj]); }
-            if (rk == 2) { text.Text = $"{c[ri]} - {c[rj]} = {numgamecomputing_v.minus(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.minus(c[ri], p[rj]); }
-            if (rk == 3) { text.Text = $"{c[ri]} * {c[rj]} = {numgamecomputing_v.time(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.time(c[ri], p[rj]); }
-            if (rk == 4) { text.Text = $"{c[ri]} / {c[rj]} = {numgamecomputing_v.div(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.div(c[ri], p[rj]); }
+            if (rk == 1) { text.Text = $"{c[ri]} + {p[rj]} = {numgamecomputing_v.plus(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.plus(c[ri], p[rj]); }
+            if (rk == 2) { text.Text = $"{c[ri]} - {p[rj]} = {numgamecomputing_v.minus(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.minus(c[ri], p[rj]); }
+            if (rk == 3) { text.Text = $"{c[ri]} * {p[rj]} = {numgamecomputing_v.time(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.time(c[ri], p[rj]); }
+            if (rk == 4) { text.Text = $"{c[ri]} / {p[rj]} = {numgamecomputing_v.div(c[ri], p[rj])}"; c[ri] = numgamecomputing_v.div(c[ri], p[rj]); }
 
             make_text();
 

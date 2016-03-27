@@ -252,8 +252,9 @@ namespace num_game_core
                             if (tmp == -1) if (step_x == 0) { sp[i, j, k] = int.MinValue + 100; continue; } else continue;
 
                             tc[i] = tmp;
-                            if (tc[i] == target) sp[m, n, x] += 3;
+                            if (tc[i] == target) sp[m, n, x] += 10;
                             else if (tc[i] != tc[3 - i]) sp[m, n, x]++;
+                            if (tmp == 0) if ((c[i] == 0) || (p[j] == 0)) sp[i, j, k] -= 10; else sp[i, j, k] -= 5;
                             //电脑双target自动校正
                             if ((step_x == 0) && (tc[1] == target) && (tc[2] == target))
                             { sp[m, n, x] = int.MaxValue; choose(c, p); return; }
@@ -271,7 +272,7 @@ namespace num_game_core
                             if (tmp == -1) if (step_x == 0) { sp[i, j, k] = int.MinValue + 100; continue; } else continue;
 
                             tp[i] = tmp;
-                            if (tp[i] == target) sp[m, n, x] -= 3;
+                            if (tp[i] == target) sp[m, n, x] -= 10;
                             else if (tp[i] != tp[3 - i]) sp[m, n, x]--;
                             //玩家双target自动校正
                             if ((step_x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n, x] != int.MaxValue))
@@ -288,6 +289,16 @@ namespace num_game_core
                     for (i = 1; i <= 2; i++)
                         for (j = 1; j <= 2; j++)
                             if ((c[i] == target) && (sp[i, j, k] != int.MinValue + 1000)) sp[i, j, k] -= 8;
+
+                for (i = 1; i <= 2; i++)
+                    for (j = 1; j <= 2; j++)
+                    {
+                        sp[i, j, 1] += 10;
+                        sp[i, j, 2] -= 10;
+                        sp[i, j, 3] += 10;
+                        sp[i, j, 4] -= 10;
+                    }
+
                 choose(c, p);
             }
         }
