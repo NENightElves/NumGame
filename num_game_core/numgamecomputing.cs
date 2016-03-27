@@ -252,7 +252,7 @@ namespace num_game_core
                             if (tmp == -1) if (step_x == 0) { sp[i, j, k] = int.MinValue + 100; continue; } else continue;
 
                             tc[i] = tmp;
-                            if (tc[i] == target) sp[m, n, x] += 10;
+                            if (tc[i] == target) sp[m, n, x] += 5;
                             else if (tc[i] != tc[3 - i]) sp[m, n, x]++;
                             if (tmp == 0) if ((c[i] == 0) || (p[j] == 0)) sp[i, j, k] -= 10; else sp[i, j, k] -= 5;
                             //电脑双target自动校正
@@ -272,7 +272,7 @@ namespace num_game_core
                             if (tmp == -1) if (step_x == 0) { sp[i, j, k] = int.MinValue + 100; continue; } else continue;
 
                             tp[i] = tmp;
-                            if (tp[i] == target) sp[m, n, x] -= 10;
+                            if (tp[i] == target) sp[m, n, x] -= 5;
                             else if (tp[i] != tp[3 - i]) sp[m, n, x]--;
                             //玩家双target自动校正
                             if ((step_x == 1) && (tp[1] == target) && (tp[2] == target) && (sp[m, n, x] != int.MaxValue))
